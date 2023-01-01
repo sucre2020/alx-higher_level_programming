@@ -1,2 +1,32 @@
-#!/bin/bash
-python3 -m compileall -b "$PYFILE"
+#!/usr/bin/env bash
+
+PYFILE=$1
+
+if [ -z "$PYFILE" ]; then
+  echo "Error: No input file specified."
+  exit 1
+fi
+
+# Check if the input file exists
+if [ ! -f "$PYFILE" ]; then
+  echo "Error: Input file does not exist."
+  exit 1
+fi
+
+# Check if the input file has a .py extension
+if [[ "$PYFILE" != *.py ]]; then
+  echo "Error: Input file is not a Python script."
+  exit 1
+fi
+
+# Compile the Python script
+python -m py_compile "$PYFILE"
+
+# Check if the compilation was successful
+if [ $? -ne 0 ]; then
+  echo "Error: Compilation failed."
+  exit 1
+fi
+
+# Rename the compiled file to have a .pyc extension
+mv "$PYFILE"c "$PYFILE"c.pyc
