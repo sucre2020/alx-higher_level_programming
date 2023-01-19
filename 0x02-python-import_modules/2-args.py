@@ -1,13 +1,16 @@
 #!/usr/bin/python3
+from sys import argv
+arlen = len(argv) - 1
+arstr = ""
+if arlen == 1:
+    arstr = "argument"
+else:
+    arstr = "arguments"
 if __name__ == "__main__":
-    from sys import argv
-    n = len(argv) - 1
-    if n == 0:
-        print(f"{n} arguments.")
-    elif n == 1:
-        print(f"{n} argument:")
+    if arlen == 0:
+        print("{:d} {:s}.".format(arlen, arstr))
     else:
-        print(f"{n} arguments:")
-    if n > 0:
-        for i in range(1, n + 1):
-            print(f"{i}: {argv[i]}")
+        print("{:d} {:s}:".format(arlen, arstr))
+        for i, j in enumerate(argv):
+            if i != 0:
+                print("{:d}: {:s}".format(i, j))
